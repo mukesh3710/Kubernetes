@@ -35,19 +35,19 @@ metadata:
   name: nginx-replicaset # A unique name for your ReplicaSet.
   #labels: (Optional) Labels for organizing and selecting the ReplicaSet.
 spec:
-  replicas: 3
+  replicas: 3 # The desired number of pod replicas to maintain.
   selector:
-    matchLabels:
+    matchLabels: # A map of labels that the ReplicaSet will use to select and manage pods. 
       app: nginx
-  template:
+  template: # A Pod template that describes the containers and other specifications for the pods created by the ReplicaSet. 
     metadata:
       labels:
         app: nginx
     spec:
       containers:
-      - name: nginx
-        image: nginx:latest
-        ports:
+      - name: nginx # A name for the container.
+        image: nginx:latest # The Docker image to use for the container.
+        ports: # Ports to expose for the container.
         - containerPort: 80
   ```
 ## Steps:
