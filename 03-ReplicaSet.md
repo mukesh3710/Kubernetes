@@ -48,7 +48,7 @@ spec:
         image: nginx:latest
         ports:
         - containerPort: 80
-
+  ```
 ## Steps:
 Save the above YAML content to a file, e.g., nginx-replicaset.yaml.
 Apply the YAML to create the ReplicaSet:
