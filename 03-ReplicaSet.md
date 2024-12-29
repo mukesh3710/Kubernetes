@@ -62,6 +62,7 @@ Verify the ReplicaSet and Pods:
 kubectl get replicasets
 kubectl get pods
 ```
+---
 
 ## Update the Replicas to 4 from the YAML
 
@@ -78,3 +79,10 @@ kubectl get pods
 ```
 
 ## Update the Replicas to 6 from the Command Line
+
+You can also update the number of replicas directly from the command line using the kubectl scale command & verify
+```bash
+kubectl scale replicaset nginx-replicaset --replicas=6
+kubectl get replicasets
+kubectl get pods
+```
