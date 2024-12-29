@@ -222,5 +222,8 @@ Defines the Pod specification, including containers and other runtime settings.
 4. Delete the ReplicaSet:
    ```bash
    kubectl delete replicaset frontend-replicaset
-   
+
+---
+
+# Note : You cannot create replicaset using the command line, but if you really don't want to use manifest, you can surely create it via a deployment.
 
