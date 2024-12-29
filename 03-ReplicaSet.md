@@ -51,12 +51,17 @@ spec:
   ```
 ## Steps:
 Save the above YAML content to a file, e.g., nginx-replicaset.yaml.
+
 Apply the YAML to create the ReplicaSet:
+```bash
 kubectl apply -f nginx-replicaset.yaml
+```
+
 Verify the ReplicaSet and Pods:
+```bash
 kubectl get replicasets
 kubectl get pods
-You should see that 3 pods are running with the nginx image.
+```
 
 2. Update the Replicas to 4 from the YAML
 
