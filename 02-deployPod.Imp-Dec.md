@@ -1,6 +1,19 @@
-# Kubernetes Pod Tasks
+# Kubernetes Pod deployments 
 
-## Task 1: Create a Pod Imperatively
+## Imperative Way
+The imperative way involves issuing direct commands or API calls to the Kubernetes cluster to perform operations. This approach is suitable for quick tasks or experiments. Examples include:
+- Using `kubectl` commands like `kubectl run`, `kubectl create`, or `kubectl delete`.
+- Directly interacting with the Kubernetes API via tools like `curl` or Postman.
+
+Advantages:
+- Quick and straightforward for one-off tasks.
+- Does not require creating or managing additional files.
+
+Disadvantages:
+- Difficult to track changes or reproduce configurations.
+- Not suitable for managing complex or large-scale deployments.
+
+## Create a Pod Imperatively
 
 Use the following command to create a Pod using the nginx image:
 
@@ -13,7 +26,22 @@ Verify the Pod is running:
 kubectl get pods
 ```
 
-## Task 2: Generate YAML from Existing Pod and Modify
+---
+
+## Declarative Way
+The declarative way involves creating and applying manifest files to define the desired state of resources in the cluster. Kubernetes ensures the actual state matches the desired state.
+- Manifest files are typically written in YAML or JSON.
+- Use `kubectl apply` to apply the configuration.
+
+Advantages:
+- Provides version control and reproducibility.
+- Easier to manage and maintain complex configurations.
+
+Disadvantages:
+- Requires more setup time compared to imperative commands.
+- May be overkill for simple or one-off tasks.
+
+## Generate YAML from Existing Pod and Modify
 
 1. Export the YAML of the nginx Pod created in Task 1:
    ```bash
@@ -44,62 +72,3 @@ kubectl get pods
    ```bash
    kubectl get pods
    ```
-
-## Task 3: Apply YAML with Errors and Troubleshoot
-
-### Problematic YAML
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  labels:
-    app: test
-  name: redis
-spec:
-  containers:
-  - image: rediss
-    name: redis
-```
-
-### Steps to Troubleshoot
-
-1. Attempt to apply the YAML:
-   ```bash
-   kubectl apply -f redis-pod.yaml
-   ```
-
-2. Observe the error:
-   ```bash
-   error: unable to pull image "rediss": invalid image name
-   ```
-
-3. Edit the YAML to use the correct image (`redis` instead of `rediss`):
-
-   ```yaml
-   apiVersion: v1
-   kind: Pod
-   metadata:
-     labels:
-       app: test
-     name: redis
-   spec:
-     containers:
-     - image: redis
-       name: redis
-   ```
-
-4. Apply the corrected YAML:
-   ```bash
-   kubectl apply -f redis-pod.yaml
-   ```
-
-5. Verify the Pod is running:
-   ```bash
-   kubectl get pods
-   ```
-
-6. Check the Pod logs to ensure it is working correctly:
-   ```bash
-   kubectl logs redis
-   
