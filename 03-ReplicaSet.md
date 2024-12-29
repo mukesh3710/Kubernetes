@@ -29,25 +29,24 @@ Let's walk through a series of tasks involving creating, updating, and scaling a
 Below is an example of a YAML file to create a ReplicaSet that runs 3 replicas of the `nginx` container.
 
 ```yaml
-apiVersion: apps/v1 # Specifies the Kubernetes API version for the ReplicaSet.
-kind: ReplicaSet # Must be "ReplicaSet"
+apiVersion: apps/v1 
+kind: ReplicaSet 
 metadata:
-  name: nginx-replicaset # A unique name for your ReplicaSet.
-  #labels: (Optional) Labels for organizing and selecting the ReplicaSet.
+  name: nginx-replicaset 
 spec:
-  replicas: 3 # The desired number of pod replicas to maintain.
+  replicas: 3 
   selector:
-    matchLabels: # A map of labels that the ReplicaSet will use to select and manage pods. 
+    matchLabels:  
       app: nginx
-  template: # A Pod template that describes the containers and other specifications for the pods created by the ReplicaSet. 
+  template:  
     metadata:
       labels:
         app: nginx
     spec:
       containers:
-      - name: nginx # A name for the container.
-        image: nginx:latest # The Docker image to use for the container.
-        ports: # Ports to expose for the container.
+      - name: nginx 
+        image: nginx:latest 
+        ports: 
         - containerPort: 80
   ```
 ## Steps:
