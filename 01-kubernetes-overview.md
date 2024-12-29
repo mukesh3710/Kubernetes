@@ -34,6 +34,68 @@ Kubernetes, often referred to as K8s, is an open-source container orchestration 
 
 ---
 
+## Kubernetes Architecture
+
+Kubernetes architecture is designed to manage large-scale containerized applications efficiently. It consists of the following components:
+
+### Control Plane Components
+
+1. **API Server**:
+   - Acts as the gateway to the Kubernetes cluster.
+   - All kubectl commands and client requests are handled here.
+
+2. **etcd**:
+   - A distributed key-value store that stores cluster state and configuration data.
+
+3. **Scheduler**:
+   - Assigns workloads (Pods) to worker nodes based on resource availability and policies.
+
+4. **Controller Manager**:
+   - Ensures the cluster is in the desired state by managing controllers, such as ReplicaSets and Deployments.
+
+5. **Cloud Controller Manager** (optional):
+   - Manages cloud-specific resources, like load balancers or storage.
+
+### End-to-End Flow: What Happens When You Run a kubectl Command?
+
+1. **kubectl command execution**:
+   - The user runs a command (e.g., `kubectl apply -f deployment.yaml`).
+
+2. **API Server Interaction**:
+   - kubectl sends the request to the API Server.
+   - The API Server validates the request and updates the cluster state in etcd.
+
+3. **Scheduler Action**:
+   - The Scheduler identifies the optimal worker node to run the requested Pod based on available resources.
+
+4. **Kubelet Execution**:
+   - The Kubelet on the chosen worker node pulls the container image and starts the Pod.
+
+5. **Networking and Proxying**:
+   - Kube-Proxy sets up the necessary networking rules to enable communication.
+
+6. **Monitoring**:
+   - The control plane continuously monitors the application to ensure it matches the desired state.
+
+---
+
+## Pods and Containers
+
+### Pod
+- A Pod is the smallest deployable unit in Kubernetes.
+- It can contain one or more tightly coupled containers.
+- Containers within a Pod share the same network namespace, IP address, and storage volumes.
+- Use cases:
+  - Running a single container (most common scenario).
+  - Running sidecar containers (e.g., logging or proxy containers).
+
+### Container
+- A container is a lightweight, standalone, and executable package of software.
+- It includes the application code and its dependencies.
+- Containers in Kubernetes are managed and orchestrated within Pods.
+
+---
+
 ## Challenges of Using Standalone Containers
 
 1. **Manual Scaling**:
