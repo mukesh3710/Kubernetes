@@ -5,6 +5,8 @@ It's crucial for ensuring compatibility between your YAML file and the Kubernete
 # kind:
 This field defines the type of Kubernetes resource you are creating.
 
+---
+
 # Finding apiVersion and kind for specific resources
 
 - Kubernetes Documentation: The official Kubernetes documentation provides comprehensive information on all available Kubernetes resources, including their apiVersion and kind. Refer to the documentation for the specific resource you want to create (e.g., Deployments, Services, Pods).
