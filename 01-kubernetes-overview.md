@@ -84,4 +84,42 @@ Kubernetes, often referred to as K8s, is an open-source container orchestration 
 
 ---
 
-By addressing these challenges, Kubernetes empowers developers to focus on building applications while it handles the operational complexity of container orchestration.
+## When to Use Kubernetes
+
+1. **Microservices Architecture**:
+   - Ideal for managing a large number of loosely coupled microservices.
+
+2. **Scalable Applications**:
+   - Applications requiring automated horizontal and vertical scaling.
+
+3. **CI/CD Pipelines**:
+   - Facilitates rolling updates, canary deployments, and blue-green deployments.
+
+4. **Hybrid or Multi-Cloud Deployments**:
+   - Suitable for workloads spanning multiple cloud providers or on-premises environments.
+
+5. **Applications with High Availability Requirements**:
+   - Ensures redundancy and failover with self-healing and replication features.
+
+---
+
+## When Not to Use Kubernetes
+
+1. **Simple or Small Applications**:
+   - For straightforward use cases, Kubernetes adds unnecessary complexity.
+
+2. **Limited Resources**:
+   - Kubernetes requires significant computational and operational overhead.
+
+3. **Static Workloads**:
+   - Applications that don’t require scaling or frequent updates may not benefit from Kubernetes.
+
+4. **Tight Deadlines**:
+   - Kubernetes has a steep learning curve, which might slow down projects with time constraints.
+
+5. **Single Node Applications**:
+   - If the application runs efficiently on a single server, Kubernetes may be overkill.
+
+---
+
+By understanding the strengths and limitations of Kubernetes, you can make informed decisions about when to use it for managing your containerized workloads.
