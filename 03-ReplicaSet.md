@@ -91,7 +91,7 @@ kubectl get pods
 
 # Production-Ready ReplicaSet in Kubernetes
 
-This document demonstrates a production-ready `ReplicaSet` configuration in Kubernetes and explains each parameter.
+Below demonstrates a production-ready `ReplicaSet` configuration in Kubernetes and explains each parameter.
 
 ---
 
