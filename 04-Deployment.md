@@ -165,3 +165,179 @@ kubectl get pods -o wide
   ```bash
   kubectl rollout undo deployment/<name> --to-revision=<revision>
   
+---
+---
+
+# Production-Ready Kubernetes Deployment
+
+This document demonstrates a production-ready `Deployment` configuration and explains each parameter to ensure reliability, scalability, and maintainability in real-world scenarios.
+
+---
+
+## Deployment YAML Example
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-deployment
+  namespace: production
+  labels:
+    app: webapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - name: webapp-container
+        image: webapp:1.0.0
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "500m"
+          limits:
+            memory: "256Mi"
+            cpu: "1"
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        env:
+        - name: ENV
+          value: "production"
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/config
+      volumes:
+      - name: config-volume
+        configMap:
+          name: webapp-config
+      nodeSelector:
+        disktype: ssd
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - webapp
+            topologyKey: kubernetes.io/hostname
+      tolerations:
+      - key: "key"
+        operator: "Equal"
+        value: "value"
+        effect: "NoSchedule"
+```
+
+---
+
+## Explanation of Parameters
+
+### `apiVersion`
+Specifies the API version. Use `apps/v1` for Deployments.
+
+### `kind`
+Indicates the resource type, which is `Deployment`.
+
+### `metadata`
+- **`name`**: Unique name for the Deployment.
+- **`namespace`**: Defines the namespace in which the Deployment exists. Use `production` for production environments.
+- **`labels`**: Key-value pairs to categorize and identify the resource.
+
+### `spec`
+Describes the desired state of the Deployment.
+
+#### `replicas`
+Specifies the number of Pods to maintain. Here, 3 replicas ensure high availability.
+
+#### `selector`
+Defines how to identify Pods managed by the Deployment. Pods with the label `app: webapp` are selected.
+
+#### `template`
+Defines the Pod template to create.
+
+##### `template.metadata.labels`
+Labels assigned to the Pods for identification and service discovery.
+
+##### `template.spec`
+Specifies the containers and other runtime configurations for the Pod.
+
+- **`containers`**: Defines the containers.
+  - **`name`**: Name of the container.
+  - **`image`**: Container image with a specific version tag for consistency.
+  - **`ports`**: Specifies container ports to expose.
+  - **`resources`**: Ensures resource requests and limits for efficient resource allocation.
+    - **`requests`**: Minimum resources guaranteed.
+    - **`limits`**: Maximum resources the container can use.
+  - **`readinessProbe`**: Ensures the container is ready to serve traffic.
+  - **`livenessProbe`**: Checks if the container is alive and running.
+  - **`env`**: Environment variables passed to the container.
+  - **`volumeMounts`**: Mounts volumes into the container.
+
+- **`volumes`**: Configures volumes for the Pods.
+  - **`configMap`**: Uses a ConfigMap to provide configuration data to the container.
+
+- **`nodeSelector`**: Ensures Pods are scheduled on nodes with specific labels, such as `disktype: ssd`.
+
+- **`affinity`**:
+  Configures Pod affinity and anti-affinity rules.
+  - **`podAntiAffinity`**: Prevents scheduling Pods on the same node to enhance reliability.
+
+- **`tolerations`**: Allows Pods to be scheduled on tainted nodes with specific conditions.
+
+---
+
+## Deployment Steps
+
+1. Save the above YAML to `webapp-deployment.yaml`.
+2. Apply the Deployment:
+   ```bash
+   kubectl apply -f webapp-deployment.yaml
+   ```
+3. Verify the Deployment and Pods:
+   ```bash
+   kubectl get deployments -n production
+   kubectl get pods -n production
+   ```
+4. Check the Pod logs:
+   ```bash
+   kubectl logs <pod-name> -n production
+   ```
+5. Scale the Deployment:
+   ```bash
+   kubectl scale deployment webapp-deployment --replicas=5 -n production
+   ```
+6. Update the image:
+   ```bash
+   kubectl set image deployment/webapp-deployment webapp-container=webapp:1.1.0 -n production
+   ```
+7. Verify rollout status:
+   ```bash
+   kubectl rollout status deployment/webapp-deployment -n production
+   ```
+8. Check rollout history:
+   ```bash
+   kubectl rollout history deployment/webapp-deployment -n production
+   ```
+9. Rollback if needed:
+   ```bash
+   kubectl rollout undo deployment/webapp-deployment -n production
+   
