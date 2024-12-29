@@ -12,6 +12,16 @@ This guide walks you through creating a Kubernetes multi-node cluster using KIND
    ```bash
    kind version
    ```
+   
+## Installing kubectl Client
+1. Install kubectl:
+   ```bash
+   brew install kubectl
+   ```
+2. Verify installation:
+   ```bash
+   kubectl version --client
+   ```
 
 ## Steps to Create a KIND Multi-Node Cluster
 
@@ -40,9 +50,11 @@ kind create cluster --config kind-cluster.yaml --name kind-cka
 ```
 
 ### 3. Verify the Cluster
-- Check the cluster context:
+- The current context is set automatically when the cluster is created. Check the cluster context:
   ```bash
+  kubectl config get-contexts
   kubectl config current-context
+  kubectl config use-context <context-name>
   ```
 - Ensure all nodes are ready:
   ```bash
@@ -56,22 +68,6 @@ docker ps
 ```
 
 You should see containers representing the control-plane and worker nodes.
-
-## Installing kubectl Client
-1. Install kubectl:
-   ```bash
-   brew install kubectl
-   ```
-2. Verify installation:
-   ```bash
-   kubectl version --client
-   ```
-
-## Setting the Current Context
-The current context is set automatically when the cluster is created. To manually set it:
-```bash
-kubectl config use-context kind-kind
-```
 
 ## Important KIND Commands
 Here are some useful KIND commands for managing your cluster:
