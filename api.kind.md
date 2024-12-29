@@ -19,7 +19,7 @@ This field defines the type of Kubernetes resource you are creating.
   kubectl explain deployments
   ```
   This command will display detailed information about the Deployment resource, including its API version (apps/v1), kind (Deployment), and other relevant fields.
--  Finding information from resource
+- Finding information from resource
   ```bash
   kubectl get <resource> -o yaml
   ```
