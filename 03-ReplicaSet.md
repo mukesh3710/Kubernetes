@@ -63,8 +63,18 @@ kubectl get replicasets
 kubectl get pods
 ```
 
-2. Update the Replicas to 4 from the YAML
+## Update the Replicas to 4 from the YAML
 
 To update the number of replicas, modify the replicas field in the YAML file.
+```bash
+replicas: 4  # Updated from 3 to 4
+```
 
-Updated YAML File:
+Apply the updated YAML & Verify the Updated ReplicaSet and Pods:
+```bash
+kubectl apply -f nginx-replicaset.yaml
+kubectl get replicasets
+kubectl get pods
+```
+
+## Update the Replicas to 6 from the Command Line
