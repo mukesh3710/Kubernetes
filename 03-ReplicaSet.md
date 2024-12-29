@@ -48,3 +48,18 @@ spec:
         image: nginx:latest
         ports:
         - containerPort: 80
+
+## Steps:
+Save the above YAML content to a file, e.g., nginx-replicaset.yaml.
+Apply the YAML to create the ReplicaSet:
+kubectl apply -f nginx-replicaset.yaml
+Verify the ReplicaSet and Pods:
+kubectl get replicasets
+kubectl get pods
+You should see that 3 pods are running with the nginx image.
+
+2. Update the Replicas to 4 from the YAML
+
+To update the number of replicas, modify the replicas field in the YAML file.
+
+Updated YAML File:
