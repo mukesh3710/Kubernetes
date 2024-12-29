@@ -36,7 +36,7 @@ kubeadmConfigPatches:
 ### 2. Create the Cluster
 Run the following command to create the cluster:
 ```bash
-kind create cluster --config kind-cluster.yaml
+kind create cluster --config kind-config.yaml --name kind-cka1
 ```
 
 ### 3. Verify the Cluster
