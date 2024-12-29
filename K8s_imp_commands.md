@@ -1,4 +1,4 @@
-# Kubernetes Must-Know Commands for Interviews
+# Kubernetes Must-Know Commands
 
 Here is a categorized list of essential Kubernetes commands grouped by their usage. These commands will help you demonstrate your expertise in Kubernetes during interviews.
 
