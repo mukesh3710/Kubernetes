@@ -186,6 +186,7 @@ Kubernetes architecture is designed to manage large-scale containerized applicat
 
 By understanding the strengths and limitations of Kubernetes, you can make informed decisions about when to use it for managing your containerized workloads.
 
+---
 
 # apiVersion:
 This field specifies the version of the Kubernetes API used for the resource being defined.   
